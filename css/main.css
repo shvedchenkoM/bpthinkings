@@ -1,0 +1,188 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway|Roboto+Slab');
+
+body{
+    background-color: #f2f2f2;
+    font-family: "Raleway";
+    font-weight: 300;
+    font-size: 20px;
+    color: #555;
+    -webkit-font-smoothing: antialiased;
+    -webkit-overflow-scrolling: touch;
+    margin-top: 70px;
+}
+h1, h2, h3, h4, h5, h6{
+    font-family: "Roboto Slab";
+    font-weight: 300;
+    color: #151515
+}
+
+p{
+    line-height: 28px;
+    margin-bottom: 25px;
+}
+.centered{
+    text-align: center;
+}
+
+a{
+    color: #2d2d2d;
+    font-family: "Roboto Slab";
+    font-weight: 300;
+    font-size: 24px;
+
+}
+a:hover, a:focus{
+    color: black;
+}
+hr{
+    display: block;
+    height:1px;
+    border:0;
+    border-top:1px soild #ccc;
+    margin: 1em 0;
+    padding: 0;
+}
+.navbar{
+    font-weight: 800;
+    font-size:18px;
+    position: fixed;
+    padding-top:10px;
+    padding-bottom:10px;
+}
+.navbar-inverse{
+    background: #2d2d2d;
+    border-color: #2d2d2d;
+}
+.centered{
+    text-align: center;
+    margin-right: 0px;
+    margin-left: 0px;
+}
+.navbar-inverse .navbar-nav > .active > a{
+    background-color: #151515;
+}
+.navbar-inverse .navbar-brand{
+    color:#ccc;
+    font-weight:bolder;
+    font-size:22px;
+    letter-spacing: 1px;
+}
+#contentmain{
+    background: url(../img/Programming-languages.jpg) no-repeat center top;
+    padding-top: 20px;
+    text-align: center;
+    background-attachment: relative;
+    background-position: center center;
+    min-height: 600px;
+    width:100%;
+    background-size:100%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+
+}
+
+#contentmain h1{
+    margin-top:200px;
+    color:white;
+    font-size:70px;
+    font: weight 300;
+    letter-spacing: 3px;
+    font-family: "Roboto Slab";
+
+}   
+#contentmain h2{
+    color:white;
+    font-size:40px;
+    font: weight 300;
+    letter-spacing: 2px;
+    font-family: "Roboto Slab";
+}   
+#copyright{
+    margin-bottom: 10px;
+    margin-top: 10px;
+    color: black;
+}
+#copyright h6{
+    font-size:14px;
+    font-family: "Roboto Slab";
+}
+#articles{
+    background: #e0e0e0;
+    padding-top: 70px; 
+    padding-left: 20px; 
+    padding-right: 20px; 
+    padding-bottom: 20px;
+}
+.article_cool_border{
+    background: #e0e0e0;
+    color: black;
+    padding:10px;
+    border-radius: 10px;
+}
+.article_cool_border1{
+    background: #eeeeee;
+    color:black;
+    padding-top: 50px; 
+    padding:10px;
+    border-radius: 10px;
+}
+.article_header{
+    color:#151515;
+    padding:10px;
+    letter-spacing: 2px;
+    font-size: 2em;
+    text-align: left;
+}
+.article_prev{
+    color: #2d2d2d;
+    letter-spacing: 1px;
+    font-size: 22px;
+    padding: 14px; 
+    text-align:left;   
+    font-family: "Raleway";
+
+}
+.article_link{
+    color: #555;
+    font-size: 4px;
+    text-align: left;
+    padding: 14px;
+}
+#article_main{
+    background: #e0e0e0;
+    color:black;
+    font-family: "Roboto Slab";
+    background-attachment: relative;
+    background-position: center center;
+    width:100%;
+    background-size:100%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    padding:20px;
+}
+#article_content{
+    color:black;
+    font-family: "Raleway";
+    width:100%;
+    background-size:100%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    text-align: left;
+    padding: 50px;
+}
+#article_content h2{
+    color:#2d2d2d;
+    font-family: "Raleway";
+    font-size: 25px;
+}
+#article_content h3{
+    color:#2d2d2d;
+    font-family: "Raleway";
+    font-size: 20px;
+}

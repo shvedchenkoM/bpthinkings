@@ -1,0 +1,226 @@
+<!DOCTYPE <!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Two dimensional arrays in C</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../css/bootstrap.css" />
+    <link rel="stylesheet" href="../css/fontawesome.min.css" />
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+        crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="../index.html">BEST PROGRAMMING THINKINGS</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="../index.html#section_articles">Articles <i class="far fa-newspaper"></i></a></li>
+                    <li><a href="#"> Tutorials <i class="fas fa-chalkboard"></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="article_main">
+        <div class="container">
+            <div class="row centered">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <h1>Two dimensional arrays in C </h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="article_content">
+        <h2>Существует ли какой-то универсальный параметр для передачи матрицы в функции в языке программирования С,
+            такой, что может принять матрицу созданную как в стеке, так и на куче?
+        </h2>
+        <br>
+        <p>
+            Для начала необходимо взглянуть на такое понятие как управление памятью в языке С. Это очень обширная
+            область в этом языке программирования, однако для решения поставленной задачи будет достаточно
+            познакомиться с некоторыми основными понятиями, а именно: что такое выделение памяти, области выделения
+            памяти.
+            Выделение памяти - процесс предоставления места в оперативной памяти компьютера, которое будет
+            использоваться только вашей программой, и никакая другая не будет иметь к ней доступа. Любой программе,
+            работающей с данными, необходима память, в которой эти данные будут храниться. Очевидно, что количество
+            памяти ограничено, и на современных компьютерах работает одновременно множество программ. Современный
+            компьютер находится под управленем операционной системы, в которой запущено огромное количество важных
+            процессов, ипользующих ресурсы ПК. В зависимости от количества данных, используемых в программе, а так же
+            от типа этих данных, программист решает как будет выделяться память для конкретной программы: есть два
+            существенно разных способа - выделить память динамически (чаще всего используется именно этот способ), или
+            выделить память статически. Отличие между этими двумя способами заключаются в типе и в максимальном
+            количестве памяти доступной под выделение.
+            Область памяти для статического выделения называется стек, для динамического - куча (с англ. heap)
+            
+            <h3>Стек</h3> — это область оперативной памяти, которая создаётся для каждой программы. Он работает в порядке LIFO
+            (Last In, First Out), то есть последний добавленный в стек кусок памяти будет первым в очереди на вывод из
+            стека. Каждый раз, когда функция объявляет новую переменную, она добавляется в стек, а когда эта переменная
+            пропадает из области видимости (например, когда функция заканчивается), она автоматически удаляется из
+            стека. Когда стековая переменная освобождается, эта область памяти становится доступной для других стековых
+            переменных.
+            Из-за такой природы стека управление памятью оказывается весьма логичным и простым для выполнения на ЦП;
+            это приводит к высокой скорости, в особенности потому, что время цикла обновления байта стека очень мало,
+            т.е. этот байт скорее всего привязан к кэшу процессора (кэш процессора - память, используемая для хранения
+            данных с которыми непосредственно работает процессор. Это самая быстрая память в компьютере). Тем не менее,
+            у такой строгой формы управления есть и недостатки. Размер стека — это фиксированная величина, и превышение
+            лимита выделенной на стеке памяти приведёт к переполнению стека. Размер задаётся при создании потока, и у
+            каждой переменной есть максимальный размер, зависящий от типа данных. Это заставляет ограничивать размер
+            некоторых переменных (например, целочисленных), и вынуждает заранее объявлять размер более сложных типов
+            данных (например, массивов), поскольку стек не позволит им изменить его. Кроме того, переменные,
+            расположенные на стеке, всегда являются локальными. В операционной системе Linux стандартный размер стека =
+            8мб, в чем можно легко убедиться, если запустить отладчик типа gdb или valgrind, и посмотреть размер стека
+            выделенного под выполнение программы.
+
+            <h3>Куча</h3> — это хранилище памяти, также расположенное в ОЗУ, которое допускает динамическое выделение памяти и
+            не работает по принципу стека: это просто склад для переменных. Когда в куче выделяется участок памяти для
+            хранения переменной, к ней можно обратиться не только в потоке, но и во всем приложении. Именно так
+            определяются глобальные переменные. По завершении приложения все выделенные участки памяти освобождаются.
+            Размер кучи задаётся при запуске приложения, но, в отличие от стека, он ограничен лишь физически, что
+            позволяет создавать динамические переменные.
+
+            Рассмотрим способы создания двумерного массива в С:
+            Для удобства предположим, что типом даных для этого массива есть некий абстрактный тип Т, так как все
+            перечисленные способы работают с любым типом данных, в т.ч. и со структурами.
+
+        </p>
+        <h3>Способ 1</h3>
+        <p>
+            <pre style='color:#000000;background:#ffffff;'> T matrix<span style='color:#808030; '>[</span>r<span style='color:#808030; '>]</span><span style='color:#808030; '>[</span>c<span style='color:#808030; '>]</span><span style='color:#800080; '>;</span> <span style='color:#696969; '>//r и c это переменные, задающие размер массива. r соответствует количеству рядов, c количеству колонок.</span>
+           </pre>
+            Такой массив был размещен на стеке, а функция, которая принимает такой массив как
+            аргумент, будет иметь вид:
+            <pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>void</span> Foo<span style='color:#808030; '>(</span>T matrix<span style='color:#808030; '>[</span>r<span style='color:#808030; '>]</span><span style='color:#808030; '>[</span>c<span style='color:#808030; '>]</span><span style='color:#808030; '>)</span> <span style='color:#696969; '>// такая функция принимает двумерный массив созданный на стеке</span>
+            </pre>
+            В параметре необходимо знать размер массива! Значения
+            переменных r и c должны быть известны компилятору заранее, иначе программа не скомпилируется, gcc выдаст
+            сообщение об ошибке:
+            <pre style='color:#000000;background:#ffffff;'><span style='color:#603000; '>array</span> type has incomplete element type `Т<span style='color:#808030; '>[</span><span style='color:#808030; '>]</span>`
+            </pre>
+            Если компилятор поддерживает VLA
+            (Variable length array, visual studio compiler не поддерживает, gcc поддерживает), то параметр можно
+            видоизменить до
+            <pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>void</span> Foo<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>int</span> rows<span style='color:#808030; '>,</span> <span style='color:#800000; font-weight:bold; '>int</span> columns<span style='color:#808030; '>,</span> T matrix<span style='color:#808030; '>[</span>rows<span style='color:#808030; '>]</span><span style='color:#808030; '>[</span>columns<span style='color:#808030; '>]</span><span style='color:#808030; '>)</span>
+            </pre>
+            но задать размеры массива
+            передаваемого в функцию необходимо. Отличие второго параметра от первого в том, что в первый параметр
+            нельзя подставить переменную. Значения r и с должны быть либо глобальными константами, либо явно записаны в
+            скобки, что считается плохим стилем программирования, в то время как во второй параметр переменную
+            подставить можно и переменная может быть передана в качестве аргумента функции.
+            Внешний вид параметров
+            <pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>int</span> rows<span style='color:#808030; '>,</span> <span style='color:#800000; font-weight:bold; '>int</span> columns<span style='color:#808030; '>,</span> T matrix<span style='color:#808030; '>[</span>rows<span style='color:#808030; '>]</span><span style='color:#808030; '>[</span>columns<span style='color:#808030; '>]</span>
+            </pre>
+            можо изменить на
+            <pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>int</span> rows<span style='color:#808030; '>,</span> <span style='color:#800000; font-weight:bold; '>int</span> columns<span style='color:#808030; '>,</span> T <span style='color:#808030; '>(</span>matrix<span style='color:#808030; '>)</span><span style='color:#808030; '>[</span>rows<span style='color:#808030; '>]</span><span style='color:#808030; '>[</span>columns<span style='color:#808030; '>]</span>
+            </pre>
+            что одно и тоже. Главное, что функция будет ожидать в качестве
+            аргумента статический массив.
+            <br>
+            Итог: массив создан на стеке, тип параметра функции принимающей такой массив - Т[][] или T (*)[]
+        </p>
+        <h3>Способ 2</h3>
+        <pre style='color:#000000;background:#ffffff;'>T<span style='color:#808030; '>*</span><span style='color:#808030; '>*</span> matrix <span style='color:#808030; '>=</span> <span style='color:#603000; '>malloc</span><span style='color:#808030; '>(</span>r<span style='color:#808030; '>*</span><span style='color:#800000; font-weight:bold; '>sizeof</span><span style='color:#808030; '>(</span>T<span style='color:#808030; '>*</span><span style='color:#808030; '>)</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            <span style='color:#800000; font-weight:bold; '>for</span><span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>int</span> i <span style='color:#808030; '>=</span> <span style='color:#008c00; '>0</span><span style='color:#800080; '>;</span> i<span style='color:#808030; '>&lt;</span> r<span style='color:#800080; '>;</span> i<span style='color:#808030; '>+</span><span style='color:#808030; '>+</span><span style='color:#808030; '>)</span><span style='color:#800080; '>{</span> 
+                matrix<span style='color:#808030; '>[</span>i<span style='color:#808030; '>]</span><span style='color:#808030; '>=</span><span style='color:#603000; '>malloc</span><span style='color:#808030; '>(</span>c<span style='color:#808030; '>*</span><span style='color:#800000; font-weight:bold; '>sizeof</span><span style='color:#808030; '>(</span>T<span style='color:#808030; '>)</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span> 
+            <span style='color:#800080; '>}</span> 
+            <span style='color:#696969; '>//работа с массивом ..... </span>
+            <span style='color:#696969; '>//после того как поработали с массивом, освобождаем память </span>
+            <span style='color:#800000; font-weight:bold; '>for</span><span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>int</span> i<span style='color:#808030; '>=</span><span style='color:#008c00; '>0</span><span style='color:#800080; '>;</span> i <span style='color:#808030; '>&lt;</span> r<span style='color:#800080; '>;</span> i<span style='color:#808030; '>+</span><span style='color:#808030; '>+</span><span style='color:#808030; '>)</span>
+            <span style='color:#800080; '>{</span> 
+                <span style='color:#603000; '>free</span><span style='color:#808030; '>(</span>matrix<span style='color:#808030; '>[</span>i<span style='color:#808030; '>]</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span> 
+            <span style='color:#800080; '>}</span> 
+            <span style='color:#696969; '>//удалеям непосредственно массив указателей</span>
+            <span style='color:#603000; '>free</span><span style='color:#808030; '>(</span>matrix<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            </pre>
+        </p>
+        <div>
+            <img src="../img/scheme1.png">
+        </div>
+        <p>
+            Рассмотрим подробнее вышеприведенный код. Функция malloc выделяет память на куче и возвращает указатель на
+            выделленную область памяти, в качестве аргумента функция malloc принимает количество памяти, которое надо
+            выделить: в данном случае это r элементов типа Т*. То есть теперь на куче существует массив размера r, в
+            котором пока ничего не записано, но который может хранить элементы типа Т*. Но что такое указатель Т*?
+            Зачем он нужен? В первой строчке был создан указатель Т**, и ему был присвоен адрес памяти выделеный
+            функцией malloc, получился одномерный массив указателей. Двумерный массив можно создать, если для каждого
+            указателя этого массива присвоить адрес памяти выделенной для нового одномерного массива размера с, важно,
+            что для каждого указателя выделяется свой уникальный массив. Следовательно, будет создано r массивов
+            размера с, которые могут хранить данные типа Т, а это уже и будет двумерным массивом r*c. Функция,
+            принимающая такой массив в качесте аргумента, будет иметь такой вид:
+            <pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>void</span> Foo<span style='color:#808030; '>(</span>T<span style='color:#808030; '>*</span><span style='color:#808030; '>*</span> matrix<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span> 
+            </pre>
+            то есть будет
+            принимать указатель на указатель на Т, адрес памяти, в которой расположен массив, созданный в первой
+            строчке. Следует отметить, что в отличие от первого способа, аргументы r и с не требуются для компиляции.
+            Далее в коде происходит освобождение памяти выделенной для этого массива. Это необходимо, т.к. язык С не
+            следит за неиспользуемой памятью, в отличие от Java. В противнм случае будет утечка памяти, но это уже тема
+            для отдельной статьи.
+            <br>
+            Итог:
+            <br>
+            1. Такой массив был создан динамически, а значит он расположен на куче, следовательно, его размер ограничен
+            только свободной оперативной памятью компьютера.
+            <br>
+            2. Функция, принимающая такой массив как аргумент, будет выглядеть следующим образом:
+            <pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>void</span> Foo<span style='color:#808030; '>(</span>T<span style='color:#808030; '>*</span><span style='color:#808030; '>*</span> matrix<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span> 
+            </pre>
+
+            или
+            <pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>void</span> Foo<span style='color:#808030; '>(</span>T<span style='color:#808030; '>*</span> matrix<span style='color:#808030; '>[</span><span style='color:#808030; '>]</span><span style='color:#808030; '>)</span>
+            </pre>
+            В данном примере просто передается указатель на указатель.
+
+            <h3>Способ 3</h3>
+            <pre style='color:#000000;background:#ffffff;'>T<span style='color:#808030; '>*</span> matrix <span style='color:#808030; '>=</span> <span style='color:#603000; '>malloc</span><span style='color:#808030; '>(</span><span style='color:#808030; '>(</span>r<span style='color:#808030; '>*</span>c<span style='color:#808030; '>)</span><span style='color:#808030; '>*</span><span style='color:#800000; font-weight:bold; '>sizeof</span><span style='color:#808030; '>(</span>T<span style='color:#808030; '>)</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            </pre>
+            Здесь, на куче создается одномерный массив размера r*c, такой массив тоже можно использовать для хранения
+            матрицы, хотя это гораздо менее удобно, чем использовать перечисленные выше способы. Функция, принимающая
+            массив в качестве аргумента будет выглядеть следующим образом:
+            <pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>void</span> Foo<span style='color:#808030; '>(</span>T<span style='color:#808030; '>*</span> matrix<span style='color:#808030; '>)</span>
+            </pre>
+            то есть параметр это
+            адрес памяти на куче, выделенной для хранения данных типа Т.
+            <br>
+            Итог: такой способ неудобен для хранения матриц, параметр имеет вид T* matrix или T matrix[].
+
+            <h3>Способ 4</h3>
+            <pre style='color:#000000;background:#ffffff;'>T matrix<span style='color:#808030; '>[</span>r<span style='color:#808030; '>*</span>c<span style='color:#808030; '>]</span><span style='color:#800080; '>;</span>
+            </pre>
+            <!--Created using ToHtml.com on 2018-11-13 15:20:05 UTC -->
+            Здесь, происходит тоже самое, что и в предыдущем примере, единственное отличие заключается в области памяти
+            выделенной для массива. Данный массив выделен на стеке, параметры функции принимающей такой массив не
+            отличаются от предыдущего способа.
+
+            <h2>
+                Вывод: типы параметров функции во всех способах создания матрицы не совпадают, поэтому универсального
+                параметра, который бы принимал двумерные массивы, не существует.
+            </h2>
+            <br>
+            <br>
+            <br>
+            <p>
+                Часть материалов взято с tproger.ru
+            </p>
+        </p>
+    </div>
+
+    <div id="copyright">
+        <div class="container">
+            <div class="row centered">
+                <h6>&#169 2018 bestprogrammingthinkings.tech. All rights reserved.</h6>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
